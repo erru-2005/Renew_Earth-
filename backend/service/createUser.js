@@ -5,7 +5,7 @@ const validator = require("validator");
 async function createUser(req, res) {
   try {
     const { firstname, dob, email, password,role } = req.body;
-    console.log(req.body);
+    
     // Check if all fields are provided
     if (!firstname || !dob || !email || !password) {
       return res.status(400).json({ message: "All fields are required." });
@@ -34,7 +34,7 @@ async function createUser(req, res) {
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("hashpass",hashedPassword);
+    
     // Create a new user
     const user = new usermodel({
       firstname,

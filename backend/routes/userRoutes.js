@@ -8,7 +8,7 @@ const getPendingRecords = require('../service/getPendingRecords');
 const updateStatus = require('../service/updateStatus');
 
 
- router.post('/Signin', createUser);
+ router.post('/signin', createUser);
  router.post('/Login', checkUser);
 router.put('/updateDonation',updateDonation);
 router.get('/updateadmin',updatedashboard);

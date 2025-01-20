@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Signin = () => {
   const [firstname, setName] = useState("");
@@ -7,28 +8,54 @@ const Signin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state for skeleton loader
+  const [loading, setLoading] = useState(false); // Loading state for spinner
+
+  // Validate if the age is above 8 years
+  const isValidAge = (dob) => {
+    const birthDate = new Date(dob);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      return age - 1;
+    }
+    return age;
+  };
 
   const handleSignin = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-    setLoading(true); // Show loader when the request starts
+    setLoading(true); // Show spinner when request starts
+
+    if (isValidAge(dob) < 8) {
+      setError("Invalid Date of Birth.");
+      setLoading(false); // Hide loader
+      return;
+    }
 
     try {
       const userdata = { firstname, dob, email, password };
-      
-      const response = await fetch("https://plantdonation.onrender.com/Signin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userdata),
-      });
+
+      const response = await fetch(
+        "https://plantdonation.onrender.com/signin",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userdata),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Signin failed. Please try again.");
+        throw new Error(
+          errorData.message || "Signin failed. Please try again."
+        );
       }
 
       const data = await response.json();
@@ -37,12 +64,10 @@ const Signin = () => {
       setDob("");
       setEmail("");
       setPassword("");
-      
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");
-      
     } finally {
-      setLoading(false); // Hide loader when the request finishes
+      setLoading(false); // Hide loader when request finishes
     }
   };
 
@@ -69,7 +94,7 @@ const Signin = () => {
               onChange={(e) => setName(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               required
-              disabled={loading} // Disable input while loading
+              disabled={loading}
             />
           </div>
           {/* DOB Field */}
@@ -88,7 +113,7 @@ const Signin = () => {
               onChange={(e) => setDob(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               required
-              disabled={loading} // Disable input while loading
+              disabled={loading}
             />
           </div>
           {/* Email Field */}
@@ -107,7 +132,7 @@ const Signin = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               required
-              disabled={loading} // Disable input while loading
+              disabled={loading}
             />
           </div>
           {/* Password Field */}
@@ -126,27 +151,37 @@ const Signin = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
               required
-              disabled={loading} // Disable input while loading
+              disabled={loading}
             />
           </div>
           {/* Sign In Button */}
           <button
             type="submit"
-            className={`w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
-            disabled={loading} // Disable button while loading
+            className={`w-full bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loading}
           >
-            {loading ? "Signing In..." : "Sign In"}
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div>
+                Processing...
+              </div>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
 
-        {/* Skeleton Loader */}
-        {loading && (
-          <div className="mt-4 text-center">
-            <div className="w-24 h-4 bg-gray-300 animate-pulse mx-auto mb-2"></div>
-            <div className="w-20 h-4 bg-gray-300 animate-pulse mx-auto"></div>
-          </div>
-        )}
+        {/* "Go to Login" Link */}
+        <p className="mt-4 text-center text-sm text-gray-600">
+          Already have an account?{" "}
+          <Link to="/" className="text-green-600 font-semibold hover:underline">
+            Log In
+          </Link>
+        </p>
 
+        {/* Success/Error Messages */}
         {success && (
           <p className="mt-4 text-sm text-center text-green-600 font-semibold">
             {success}
