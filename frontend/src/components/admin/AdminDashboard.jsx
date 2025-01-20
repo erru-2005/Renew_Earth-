@@ -23,7 +23,7 @@ const AdminDashboard = () => {
         }
 
         const result = await response.json();
-        console.log("API Response:", result);
+        
 
         setData({
           totalDonations: result.totalDonationSum || 0,
