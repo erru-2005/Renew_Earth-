@@ -29,7 +29,7 @@ const Header = () => {
 
   // Check if today matches the user's birthday
   const isBirthday = todayMonth === birthMonth && todayDate === birthDate;
-
+console.log(isBirthday, todayMonth, birthMonth, todayDate, birthDate);
   return (
     <header className="bg-gradient-to-r from-green-600 to-green-400 text-white text-center p-8 rounded-xl shadow-xl">
       <div className="animate-fade-in">
