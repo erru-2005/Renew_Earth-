@@ -55,7 +55,7 @@ const Carousel = () => {
       onTouchEnd={handleTouchEnd}
     >
       {/* Content Box */}
-      <div className="bg-gradient-to-r from-green-200 via-green-100 to-green-200 text-green-800 text-center p-8 rounded-xl shadow-lg min-h-[150px] flex items-center justify-center transform transition-all duration-500 ease-in-out">
+      <div className="bg-gradient-to-r from-green-200 via-green-100 to-green-200 text-green-800 text-center p-8 rounded-xl shadow-lg min-h-[150px] flex items-center justify-center transform transition-all duration-500 ease-in-out ">
         <p className="text-2xl font-semibold">{slogans[currentPage]}</p>
       </div>
 

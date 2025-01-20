@@ -1,27 +1,28 @@
 import React from 'react';
 import Signin from './components/Auth/Signin';
 import Login from './components/Auth/Login';
-import AdminHeader from './components/admin/AdminHeader';
-import AdminDashboard from './components/admin/AdminDashboard';
-import DonersList from './components/admin/DonersList';
-import Header from './components/Customer/Header';
-import Carousel from './components/Customer/Carousels';
-import DonationBlock from './components/Customer/DonationBlock';
-import Footer from './components/Customer/Footer';
+import AdminMain from './components/admin/AdminMain';
+import UserMain from './components/Customer/UserMain';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 export default function App() {
-   
+ 
+  //  const Authdata = JSON.parse(localStorage.getItem('user'));
+ //localStorage.clear();
+  // console.log("auth",Authdata);
+
+    return (
+      
+      <BrowserRouter>
+      <Routes>
+        
+        <Route path="/user" element={<UserMain/>} />
+        <Route path="/" element={<Login/>} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/administrator" element={<AdminMain />} />
+      </Routes>
+    </BrowserRouter>
+    )
   
-  return (
-    <div>
-      {/* <Signin /> */}
-      {/* <Login /> */}
-      {/* <AdminHeader adminName="John Doe" /> */}
-      {/* <AdminDashboard />
-      <DonersList /> */}
-      <Header donorName={"Ram"}/>
-      <Carousel/>
-      <DonationBlock/>
-      <Footer/>
-    </div>
-  )
+ 
 }

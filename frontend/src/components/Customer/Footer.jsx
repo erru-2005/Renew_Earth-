@@ -1,8 +1,15 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {
+  const Navigate = useNavigate();
+  const hadleLogout = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    Navigate("/");
+  };
   return (
-    <footer className="bg-gray-900 text-gray-300 py-6 mt-8">
+    <footer className="bg-gray-900 text-gray-300 py-6 mt-8 mx-0.5 my-0.5 rounded-lg">
       {/* Footer Content */}
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
         {/* Left Section */}
@@ -35,12 +42,13 @@ const Footer = () => {
           </li>
           
           <li>
-            <a
-              href="/logout"
+            <Link
+            onClick={(e) => {hadleLogout(e)}}
+              to="/"
               className="hover:text-red-500 transition duration-200"
             >
               Logout
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
