@@ -9,7 +9,7 @@ const DonorDashboard = () => {
   useEffect(() => {
     const fetchDonors = async () => {
       try {
-        const response = await fetch("http://localhost:4000/getPendingList");
+        const response = await fetch("https://plantdonation.onrender.com/getPendingList");
         const result = await response.json();
         if (response.ok) {
           setDonors(result.data);
@@ -27,7 +27,7 @@ const DonorDashboard = () => {
   // Handle updating donor status
   const updateStatus = async (id, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:4000/updateStatus`, {
+      const response = await fetch(`https://plantdonation.onrender.com/updateStatus`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function App() {
  
   //  const Authdata = JSON.parse(localStorage.getItem('user'));
- //localStorage.clear();
+   //localStorage.clear();
   // console.log("auth",Authdata);
 
     return (

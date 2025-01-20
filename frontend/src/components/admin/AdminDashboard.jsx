@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:4000/updateadmin", {
+        const response = await fetch("https://plantdonation.onrender.com/updateadmin", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

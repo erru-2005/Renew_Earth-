@@ -31,7 +31,7 @@ const DonationBlock = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:4000/updateDonation", {
+      const response = await fetch("https://plantdonation.onrender.com/updateDonation", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
