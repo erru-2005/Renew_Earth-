@@ -5,7 +5,7 @@ const Header = () => {
   const user = JSON.parse(localStorage.getItem("user")) || {};
   const { firstname, dob } = user;
 
-  // Check if dob is available
+  // Check if dob is available and valid
   if (!dob) {
     return (
       <header className="bg-gradient-to-r from-green-600 to-green-400 text-white text-center p-8 rounded-xl shadow-xl">
@@ -19,17 +19,22 @@ const Header = () => {
     );
   }
 
+  // Parse DOB from ISO format to a Date object
+  const birthDateObj = new Date(dob);
+
+  // Extract birth month and date
+  const birthMonth = birthDateObj.getUTCMonth() + 1; // Months are 0-indexed
+  const birthDate = birthDateObj.getUTCDate();
+
   // Get today's date
   const today = new Date();
-  const todayMonth = today.getMonth() + 1; // Months are 0-indexed
+  const todayMonth = today.getMonth() + 1;
   const todayDate = today.getDate();
-
-  // Parse DOB
-  const [birthYear, birthMonth, birthDate] = dob.split("-").map(Number);
 
   // Check if today matches the user's birthday
   const isBirthday = todayMonth === birthMonth && todayDate === birthDate;
-console.log(isBirthday, todayMonth, birthMonth, todayDate, birthDate);
+
+  
   return (
     <header className="bg-gradient-to-r from-green-600 to-green-400 text-white text-center p-8 rounded-xl shadow-xl">
       <div className="animate-fade-in">
