@@ -7,7 +7,7 @@ const Header = () => {
   const todayDate = today.getDate();
   const [birthYear, birthMonth, birthDate] = user.dob.split("-").map(Number);
 
-  const isBirthday = todayMonth === birthMonth && todayDate === birthDate;
+  const isBirthday = number(todayMonth) === number(birthMonth) && number(todayDate) === number(birthDate);
 
   return (
     <header className="bg-gradient-to-r from-green-600 to-green-400 text-white text-center p-8 rounded-xl shadow-xl">
