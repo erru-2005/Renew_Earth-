@@ -9,10 +9,13 @@ const updatedashboard = async (req, res) => {
         $facet: {
           totalUsers: [
             {
-              $match: { role: { $ne: "admin" } } // Exclude users with role 'admin'
+              $match: { 
+                role: { $ne: "admin" }, // Exclude users with role 'admin'
+                status: { $ne: "logged" } // Exclude users with status 'logged'
+              }
             },
             {
-              $count: "total" // Count the total number of non-admin records
+              $count: "total" // Count the total number of matching records
             }
           ],
           totalDonations: [
@@ -47,7 +50,6 @@ const updatedashboard = async (req, res) => {
       pendingCount
     });
   } catch (error) {
-    
     res.status(500).json({ msg: "An error occurred while fetching the summary data.", error: error.message });
   }
 };
